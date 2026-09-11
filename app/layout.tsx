@@ -57,7 +57,7 @@ export default function RootLayout({
     "name": "A-Shine Auto Mobile Detailing",
     "url": "https://www.ashineautomobiledetailing.ca",
     "telephone": "+1-519-729-5856",
-    "email": "info@ashineautomobiledetailing.ca",
+    "email": "manager@a-shineautomobiledetailing.ca",
     "image": "https://www.ashineautomobiledetailing.ca/porsche-hero.png",
     "logo": "https://www.ashineautomobiledetailing.ca/logo.png",
     "priceRange": "$100–$250",

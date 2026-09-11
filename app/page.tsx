@@ -8,75 +8,9 @@ import {
   Menu, X, Sparkles, Star, ChevronLeft, ChevronRight,
   MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare
 } from 'lucide-react';
-import { REVIEWS_ROW_1, REVIEWS_ROW_2, CustomerReview } from '@/data/reviews';
+import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
 
-// Before/After interactive slider component
-function BeforeAfterSlider({ before, after, label, beforeFilter }: { before: string; after: string; label: string; beforeFilter?: string }) {
-  const [sliderPos, setSliderPos] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
 
-  const handleMove = (clientX: number, rect: DOMRect) => {
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(percentage);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    if (e.touches[0]) {
-      handleMove(e.touches[0].clientX, rect);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.buttons === 1 || isDragging) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      handleMove(e.clientX, rect);
-    }
-  };
-
-  return (
-    <div
-      className="relative overflow-hidden rounded-2xl border border-gray-200 shadow-md select-none"
-      style={{ width: '100%', aspectRatio: '4/3', cursor: 'ew-resize' }}
-      onTouchMove={handleTouchMove}
-      onMouseMove={handleMouseMove}
-      onMouseDown={() => setIsDragging(true)}
-      onMouseUp={() => setIsDragging(false)}
-      onMouseLeave={() => setIsDragging(false)}
-    >
-      {/* After Image (Background) */}
-      <img src={after} alt={`${label} After`} className="w-full h-full object-cover pointer-events-none" />
-
-      {/* Before Image (Overlay clipped) */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)` }}
-      >
-        <img
-          src={before}
-          alt={`${label} Before`}
-          className="w-full h-full object-cover pointer-events-none"
-          style={{ filter: beforeFilter || 'brightness(0.7) contrast(1.1) saturate(0.8)' }}
-        />
-      </div>
-
-      {/* Labels */}
-      <span className="absolute left-4 top-4 bg-black/75 text-white font-bold text-[10px] tracking-wider px-2.5 py-1 rounded-md z-10">BEFORE</span>
-      <span className="absolute right-4 top-4 bg-[#E31B23] text-white font-bold text-[10px] tracking-wider px-2.5 py-1 rounded-md z-10">AFTER</span>
-
-      {/* Slider line and knob */}
-      <div
-        className="absolute top-0 bottom-0 pointer-events-none z-20"
-        style={{ left: `${sliderPos}%`, width: '2px', background: 'white', transform: 'translateX(-50%)' }}
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-lg flex items-center justify-center text-gray-800 font-bold text-sm">
-          ↔
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -287,7 +221,7 @@ export default function LandingPage() {
             </motion.p>
 
             <motion.p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)', marginBottom: '2rem', lineHeight: '1.6' }}>
-              A-Shine provides mobile interior car detailing in Kitchener-Waterloo, bringing full-service cleaning directly to your driveway or workplace. We specialize in interior deep shampooing, steam sanitization, and stain extraction — restoring your vehicle's interior to a showroom finish.
+              A-Shine provides mobile interior car detailing in Kitchener-Waterloo, bringing full-service cleaning directly to your driveway or workplace. We specialize in interior deep shampooing, steam sanitization, and stain extraction — restoring your vehicle&apos;s interior to a showroom finish.
             </motion.p>
 
             <motion.div variants={fadeIn} className="hero-cta-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
@@ -526,7 +460,7 @@ export default function LandingPage() {
               ABOUT US
             </span>
             <h2 style={{ fontSize: 'var(--text-3xl)', fontWeight: 900, color: 'var(--color-accent-secondary)', textTransform: 'uppercase', lineHeight: '1.2' }}>
-              We Don't Just Detail Cars.<br />We Care For Them Like Our <span style={{ color: 'var(--color-accent-primary)' }}>Own</span>.
+              We Don&apos;t Just Detail Cars.<br />We Care For Them Like Our <span style={{ color: 'var(--color-accent-primary)' }}>Own</span>.
             </h2>
             <p className="about-text" style={{ fontSize: '1rem', color: 'var(--color-text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem', textAlign: 'left' }}>
               A-Shine Auto Mobile Detailing is operated by Kulwant Sandhi with a deep passion for auto detailing. Specializing exclusively in complete interior shampooing, winter salt extraction, and food spill cleanup — delivering spotless, showroom-level care with honest pricing.
@@ -1354,10 +1288,10 @@ export default function LandingPage() {
               GET IN TOUCH
             </span>
             <h2 style={{ fontSize: 'clamp(1.5rem, 5.5vw, 2.2rem)', fontWeight: 900, color: 'var(--color-accent-secondary)', textTransform: 'uppercase', margin: 0, lineHeight: 1.15 }}>
-              We're Here<br />To Help
+              We&apos;re Here<br />To Help
             </h2>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
-              Have questions or ready to book your detailing service? Reach out to us today – we're just a call or message away!
+              Have questions or ready to book your detailing service? Reach out to us today – we&apos;re just a call or message away!
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '0.5rem' }}>
@@ -1389,8 +1323,8 @@ export default function LandingPage() {
                 </div>
                 <div style={{ textAlign: 'left' }}>
                   <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, marginBottom: '0.1rem', color: 'var(--color-text-primary)', textAlign: 'left' }}>Email Us</h4>
-                  <a href="mailto:info@ashineautomobiledetailing.ca" style={{ display: 'block', fontSize: '0.88rem', fontWeight: 'bold', color: 'var(--color-text-primary)', textDecoration: 'none', wordBreak: 'break-all', textAlign: 'left' }}>
-                    info@ashineautomobiledetailing.ca
+                  <a href="mailto:manager@a-shineautomobiledetailing.ca" style={{ display: 'block', fontSize: '0.88rem', fontWeight: 'bold', color: 'var(--color-text-primary)', textDecoration: 'none', wordBreak: 'break-all', textAlign: 'left' }}>
+                    manager@a-shineautomobiledetailing.ca
                   </a>
                 </div>
               </div>
