@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   Menu, X, Sparkles, Star, ChevronLeft, ChevronRight,
-  MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare
+  MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare, PawPrint
 } from 'lucide-react';
 import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
 
@@ -21,6 +21,7 @@ export default function LandingPage() {
     email: '',
     vehicle: '',
     service: '',
+    petHairExtraction: false,
     details: ''
   });
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
@@ -63,6 +64,7 @@ export default function LandingPage() {
         `Email: ${quoteForm.email.trim()}`,
         `Vehicle: ${quoteForm.vehicle.trim() || 'Not specified'}`,
         `Service: ${selectedService}`,
+        `Pet Hair Extraction (+$20): ${quoteForm.petHairExtraction ? 'Yes' : 'No'}`,
         `Details: ${quoteForm.details.trim() || 'None'}`,
       ].join('\n');
 
@@ -73,7 +75,7 @@ export default function LandingPage() {
 
       // Success feedback & clear form
       setQuoteSubmitted(true);
-      setQuoteForm({ name: '', phone: '', email: '', vehicle: '', service: '', details: '' });
+      setQuoteForm({ name: '', phone: '', email: '', vehicle: '', service: '', petHairExtraction: false, details: '' });
       setTimeout(() => setQuoteSubmitted(false), 6000);
 
     } catch {
@@ -923,9 +925,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $100 →
-              </Link>
+              </a>
             </div>
 
             {/* SUV 5-Seater (Featured) */}
@@ -950,9 +958,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $125 →
-              </Link>
+              </a>
             </div>
 
             {/* 7-Seater / Large */}
@@ -974,9 +988,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $150 →
-              </Link>
+              </a>
             </div>
 
             {/* Pickup Truck */}
@@ -998,9 +1018,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $125 →
-              </Link>
+              </a>
             </div>
 
             {/* Day Cab Truck */}
@@ -1022,9 +1048,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $140 →
-              </Link>
+              </a>
             </div>
 
             {/* Sleeper Bed Truck */}
@@ -1049,9 +1081,15 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <Link href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                <PawPrint size={15} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+              </div>
+
+              <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', marginTop: 'auto' }}>
                 BOOK FOR $250 →
-              </Link>
+              </a>
             </div>
 
 
@@ -1123,9 +1161,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $100 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1149,9 +1192,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $125 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1172,9 +1220,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $150 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1195,9 +1248,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $125 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1218,9 +1276,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--secondary btn--full" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $140 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1244,9 +1307,14 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.6rem', background: 'rgba(227, 27, 35, 0.04)', border: '1px dashed rgba(227, 27, 35, 0.25)', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                      <PawPrint size={13} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} strokeWidth={2.5} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>99% Pet Hair Extraction</span>
+                      <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-primary)', fontWeight: 800, marginLeft: 'auto', whiteSpace: 'nowrap' }}>+ $20</span>
+                    </div>
+                    <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '6px', paddingBlock: '0.6rem', fontSize: '0.8rem' }}>
                       BOOK FOR $250 →
-                    </Link>
+                    </a>
                   </div>
                 )}
 
@@ -1434,6 +1502,59 @@ export default function LandingPage() {
                         <option value="commercial">Truck & Heavy Equipment</option>
                         <option value="other">Other / Custom Request</option>
                       </select>
+                    </div>
+
+                    {/* Pet Hair Extraction Add-on */}
+                    <div
+                      onClick={() => setQuoteForm({ ...quoteForm, petHairExtraction: !quoteForm.petHairExtraction })}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: '0.75rem',
+                        padding: '0.75rem 1rem',
+                        background: quoteForm.petHairExtraction ? 'rgba(227, 27, 35, 0.06)' : 'transparent',
+                        border: quoteForm.petHairExtraction ? '1.5px solid rgba(227, 27, 35, 0.35)' : '1.5px dashed rgba(227, 27, 35, 0.2)',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        userSelect: 'none'
+                      }}
+                    >
+                      {/* Custom Toggle */}
+                      <div style={{
+                        width: '38px', height: '22px', borderRadius: '11px',
+                        background: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : '#d1d5db',
+                        position: 'relative', flexShrink: 0,
+                        transition: 'background 0.2s ease',
+                        boxShadow: quoteForm.petHairExtraction ? '0 0 8px rgba(227, 27, 35, 0.3)' : 'none'
+                      }}>
+                        <div style={{
+                          width: '16px', height: '16px', borderRadius: '50%',
+                          background: '#fff',
+                          position: 'absolute', top: '3px',
+                          left: quoteForm.petHairExtraction ? '19px' : '3px',
+                          transition: 'left 0.2s ease',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.15)'
+                        }} />
+                      </div>
+
+                      <PawPrint size={16} style={{ color: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : 'var(--color-text-muted)', flexShrink: 0, transition: 'color 0.2s ease' }} strokeWidth={2.5} />
+
+                      <div style={{ flex: 1 }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: quoteForm.petHairExtraction ? 'var(--color-text-primary)' : 'var(--color-text-secondary)', display: 'block', lineHeight: 1.2, transition: 'color 0.2s ease' }}>
+                          99% Pet Hair Extraction
+                        </span>
+                        <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', lineHeight: 1.3 }}>
+                          Deep vacuum &amp; lint extraction for pet owners
+                        </span>
+                      </div>
+
+                      <span style={{
+                        fontSize: '0.78rem', fontWeight: 800,
+                        color: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : 'var(--color-text-muted)',
+                        whiteSpace: 'nowrap', flexShrink: 0,
+                        transition: 'color 0.2s ease'
+                      }}>
+                        + $20
+                      </span>
                     </div>
 
                     <div className="input-group">
