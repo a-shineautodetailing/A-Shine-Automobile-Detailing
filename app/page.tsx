@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   Menu, X, Sparkles, Star, ChevronLeft, ChevronRight,
-  MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare, PawPrint
+  MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare, PawPrint, Clock
 } from 'lucide-react';
 import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
 
@@ -1347,76 +1347,100 @@ export default function LandingPage() {
 
 
       {/* Contact & Free Quote Section */}
-      <section id="contact" className="section" style={{ paddingBlock: '4.5rem', position: 'relative' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-16)', alignItems: 'start' }}>
+      <section id="contact" className="section contact-section">
+        <div className="container contact-container">
 
-          {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <span style={{ fontSize: '0.7rem', fontWeight: 'bold', letterSpacing: '0.15em', color: 'var(--color-accent-primary)' }}>
+          {/* Left Column — Contact Info */}
+          <div className="contact-info-col">
+            <span className="contact-eyebrow">
               GET IN TOUCH
             </span>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 5.5vw, 2.2rem)', fontWeight: 900, color: 'var(--color-accent-secondary)', textTransform: 'uppercase', margin: 0, lineHeight: 1.15 }}>
-              We&apos;re Here<br />To Help
+            <h2 className="contact-info-title">
+              We&apos;re Here To Help
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
+            <p className="contact-info-desc">
               Have questions or ready to book your detailing service? Reach out to us today – we&apos;re just a call or message away!
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '0.5rem' }}>
-              <div className="contact-info-item" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <div className="contact-info-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(227, 27, 35, 0.08)', color: 'var(--color-accent-primary)', flexShrink: 0 }}>
-                  <Phone size={19} />
+            <div className="contact-info-list">
+              <a href="tel:5197295856" className="contact-card contact-card--phone">
+                <div className="contact-card-icon">
+                  <Phone size={16} />
                 </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, marginBottom: '0.1rem', color: 'var(--color-text-primary)', textAlign: 'left' }}>Phone Number</h4>
-                  <a href="tel:5197295856" style={{ fontSize: '0.95rem', color: 'var(--color-accent-primary)', fontWeight: 'bold', textDecoration: 'none', textAlign: 'left' }}>(519) 729-5856</a>
+                <div className="contact-card-body">
+                  <span className="contact-card-line">
+                    <strong className="contact-card-label">Phone:</strong>
+                    <span className="contact-card-val contact-card-val--highlight">(519) 729-5856</span>
+                  </span>
                 </div>
-              </div>
+              </a>
 
-              <div className="contact-info-item" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <div className="contact-info-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(22, 163, 74, 0.08)', color: '#16a34a', flexShrink: 0 }}>
-                  <MessageSquare size={19} />
+              <a href="https://wa.me/15197295856" target="_blank" rel="noopener noreferrer" className="contact-card contact-card--whatsapp">
+                <div className="contact-card-icon">
+                  <MessageSquare size={16} />
                 </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, marginBottom: '0.1rem', color: 'var(--color-text-primary)', textAlign: 'left' }}>WhatsApp Us</h4>
-                  <a href="https://wa.me/15197295856" target="_blank" rel="noopener noreferrer" style={{ display: 'block', fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--color-accent-primary)', textDecoration: 'none', textAlign: 'left' }}>
-                    (519) 729-5856
-                  </a>
+                <div className="contact-card-body">
+                  <span className="contact-card-line">
+                    <strong className="contact-card-label">WhatsApp:</strong>
+                    <span className="contact-card-val contact-card-val--highlight">(519) 729-5856</span>
+                  </span>
                 </div>
-              </div>
+              </a>
 
-              <div className="contact-info-item" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <div className="contact-info-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(227, 27, 35, 0.08)', color: 'var(--color-accent-primary)', flexShrink: 0 }}>
-                  <Mail size={19} />
+              <a href="mailto:manager@a-shineautomobiledetailing.ca" className="contact-card contact-card--email">
+                <div className="contact-card-icon">
+                  <Mail size={16} />
                 </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, marginBottom: '0.1rem', color: 'var(--color-text-primary)', textAlign: 'left' }}>Email Us</h4>
-                  <a href="mailto:manager@a-shineautomobiledetailing.ca" style={{ display: 'block', fontSize: '0.88rem', fontWeight: 'bold', color: 'var(--color-text-primary)', textDecoration: 'none', wordBreak: 'break-all', textAlign: 'left' }}>
-                    manager@a-shineautomobiledetailing.ca
-                  </a>
+                <div className="contact-card-body">
+                  <span className="contact-card-line">
+                    <strong className="contact-card-label">Email:</strong>
+                    <span className="contact-card-val email-val">manager@a-shineautomobiledetailing.ca</span>
+                  </span>
                 </div>
-              </div>
+              </a>
 
-              <div className="contact-info-item" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <div className="contact-info-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(227, 27, 35, 0.08)', color: 'var(--color-accent-primary)', flexShrink: 0 }}>
-                  <MapPin size={19} />
+              <a
+                href="https://maps.google.com/?q=54+Woodbine+Avenue,+Kitchener,+ON+N2R+1V1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-card contact-card--address"
+              >
+                <div className="contact-card-icon">
+                  <MapPin size={16} />
                 </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, marginBottom: '0.1rem', color: 'var(--color-text-primary)', textAlign: 'left' }}>Service Area</h4>
-                  <span style={{ display: 'block', fontSize: '0.88rem', fontWeight: 'bold', color: 'var(--color-text-primary)', lineHeight: '1.35', textAlign: 'left' }}>
-                    54 Woodbine Avenue, Kitchener, Ont N2R 1V1
+                <div className="contact-card-body">
+                  <div className="contact-card-address">
+                    <span className="address-line-1">
+                      <strong className="contact-card-label">Address:</strong> 54 Woodbine Avenue,
+                    </span>
+                    <span className="address-line-2">Kitchener, ON N2R 1V1</span>
+                  </div>
+                </div>
+              </a>
+
+              <div className="contact-card contact-card--hours">
+                <div className="contact-card-icon">
+                  <Clock size={16} />
+                </div>
+                <div className="contact-card-body">
+                  <span className="contact-card-line">
+                    <strong className="contact-card-label">Hours:</strong>
+                    <span className="contact-card-val">Mon–Sun: 9AM–5PM <span className="hours-badge">(7 Days)</span></span>
                   </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Free Quote Form */}
-          <div style={{ position: 'relative' }}>
-            <div className="glass-card contact-form-card" style={{ padding: '2rem 1.75rem', background: 'var(--color-bg-primary)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxShadow: 'var(--shadow-lg)', position: 'relative', zIndex: 2 }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--color-accent-secondary)', textTransform: 'uppercase', marginBottom: '1rem', margin: 0 }}>
+          {/* Right Column — Free Quote Form */}
+          <div className="contact-form-col">
+            <div className="glass-card contact-form-card">
+              <h3 className="quote-form-title">
                 Get a Free Quote
               </h3>
+              <p className="quote-form-subtitle">
+                Instant pricing estimate. (Quote inquiry only — not a confirmed booking)
+              </p>
 
               <AnimatePresence mode="wait">
                 {quoteSubmitted ? (
@@ -1431,14 +1455,14 @@ export default function LandingPage() {
                     </div>
                     <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: 0 }}>Quote Request Prepared!</h4>
                     <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.5 }}>
-                      Thank you! Your quote details have been opened in WhatsApp to connect directly with our detailing team.
+                      Thank you! Your quote details have been opened in WhatsApp to connect directly with our detailing team. Please note this is a quote inquiry, not a confirmed booking — we will confirm your final slot and details shortly.
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleQuoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
+                  <form onSubmit={handleQuoteSubmit} className="quote-form">
+                    <div className="quote-form-row">
                       <div className="input-group">
-                        <label className="input-label input-label--required" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Full Name</label>
+                        <label className="input-label input-label--required">Full Name</label>
                         <input
                           type="text"
                           required
@@ -1449,7 +1473,7 @@ export default function LandingPage() {
                         />
                       </div>
                       <div className="input-group">
-                        <label className="input-label input-label--required" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Phone Number</label>
+                        <label className="input-label input-label--required">Phone Number</label>
                         <input
                           type="tel"
                           required
@@ -1461,9 +1485,9 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
+                    <div className="quote-form-row">
                       <div className="input-group">
-                        <label className="input-label input-label--required" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Email Address</label>
+                        <label className="input-label input-label--required">Email Address</label>
                         <input
                           type="email"
                           required
@@ -1474,7 +1498,7 @@ export default function LandingPage() {
                         />
                       </div>
                       <div className="input-group">
-                        <label className="input-label" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Vehicle Make & Model</label>
+                        <label className="input-label">Vehicle Model</label>
                         <input
                           type="text"
                           placeholder="e.g. Tesla Model 3"
@@ -1486,12 +1510,12 @@ export default function LandingPage() {
                     </div>
 
                     <div className="input-group">
-                      <label htmlFor="quote-service-select" className="input-label" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Service Needed</label>
+                      <label htmlFor="quote-service-select" className="input-label">Service Needed</label>
                       <select
                         id="quote-service-select"
                         aria-label="Select a service package"
                         className="input-field"
-                        style={{ appearance: 'none', background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23e31b23\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2.5\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E") no-repeat right 0.75rem center / 0.85rem', paddingRight: '2rem' }}
+                        style={{ appearance: 'none', background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23e31b23\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2.5\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E") no-repeat right 0.75rem center / 0.85rem' }}
                         value={quoteForm.service}
                         onChange={(e) => setQuoteForm({ ...quoteForm, service: e.target.value })}
                       >
@@ -1507,63 +1531,35 @@ export default function LandingPage() {
                     {/* Pet Hair Extraction Add-on */}
                     <div
                       onClick={() => setQuoteForm({ ...quoteForm, petHairExtraction: !quoteForm.petHairExtraction })}
-                      style={{
-                        display: 'flex', alignItems: 'center', gap: '0.75rem',
-                        padding: '0.75rem 1rem',
-                        background: quoteForm.petHairExtraction ? 'rgba(227, 27, 35, 0.06)' : 'transparent',
-                        border: quoteForm.petHairExtraction ? '1.5px solid rgba(227, 27, 35, 0.35)' : '1.5px dashed rgba(227, 27, 35, 0.2)',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease',
-                        userSelect: 'none'
-                      }}
+                      className={`quote-pet-hair-toggle ${quoteForm.petHairExtraction ? 'active' : ''}`}
                     >
                       {/* Custom Toggle */}
-                      <div style={{
-                        width: '38px', height: '22px', borderRadius: '11px',
-                        background: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : '#d1d5db',
-                        position: 'relative', flexShrink: 0,
-                        transition: 'background 0.2s ease',
-                        boxShadow: quoteForm.petHairExtraction ? '0 0 8px rgba(227, 27, 35, 0.3)' : 'none'
-                      }}>
-                        <div style={{
-                          width: '16px', height: '16px', borderRadius: '50%',
-                          background: '#fff',
-                          position: 'absolute', top: '3px',
-                          left: quoteForm.petHairExtraction ? '19px' : '3px',
-                          transition: 'left 0.2s ease',
-                          boxShadow: '0 1px 3px rgba(0,0,0,0.15)'
-                        }} />
+                      <div className="toggle-switch">
+                        <div className="toggle-handle" />
                       </div>
 
-                      <PawPrint size={16} style={{ color: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : 'var(--color-text-muted)', flexShrink: 0, transition: 'color 0.2s ease' }} strokeWidth={2.5} />
+                      <PawPrint size={15} className="pet-hair-icon" strokeWidth={2.5} />
 
-                      <div style={{ flex: 1 }}>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: quoteForm.petHairExtraction ? 'var(--color-text-primary)' : 'var(--color-text-secondary)', display: 'block', lineHeight: 1.2, transition: 'color 0.2s ease' }}>
+                      <div className="pet-hair-text-wrap">
+                        <span className="pet-hair-title">
                           99% Pet Hair Extraction
                         </span>
-                        <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', lineHeight: 1.3 }}>
+                        <span className="pet-hair-desc">
                           Deep vacuum &amp; lint extraction for pet owners
                         </span>
                       </div>
 
-                      <span style={{
-                        fontSize: '0.78rem', fontWeight: 800,
-                        color: quoteForm.petHairExtraction ? 'var(--color-accent-primary)' : 'var(--color-text-muted)',
-                        whiteSpace: 'nowrap', flexShrink: 0,
-                        transition: 'color 0.2s ease'
-                      }}>
+                      <span className="pet-hair-price">
                         + $20
                       </span>
                     </div>
 
                     <div className="input-group">
-                      <label className="input-label" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Additional Details (Optional)</label>
+                      <label className="input-label">Additional Details (Optional)</label>
                       <textarea
-                        rows={2}
-                        placeholder="Tell us more about your vehicle type, condition, or specific requests..."
-                        className="input-field"
-                        style={{ resize: 'vertical' }}
+                        rows={1}
+                        placeholder="Condition, special requests, or notes..."
+                        className="input-field quote-details-textarea"
                         value={quoteForm.details}
                         onChange={(e) => setQuoteForm({ ...quoteForm, details: e.target.value })}
                       />
@@ -1571,20 +1567,19 @@ export default function LandingPage() {
 
                     {/* Error message */}
                     {quoteError && (
-                      <div style={{ background: 'rgba(220, 38, 38, 0.06)', border: '1px solid rgba(220, 38, 38, 0.2)', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.85rem', color: '#dc2626', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div style={{ background: 'rgba(220, 38, 38, 0.06)', border: '1px solid rgba(220, 38, 38, 0.2)', borderRadius: '8px', padding: '0.5rem 0.75rem', fontSize: '0.8rem', color: '#dc2626', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span>⚠️</span> {quoteError}
                       </div>
                     )}
 
                     <button
                       type="submit"
-                      className="btn btn--primary btn--lg"
+                      className="btn btn--primary btn--full quote-submit-btn"
                       disabled={quoteLoading}
-                      style={{ borderRadius: '8px', paddingBlock: '0.75rem', fontSize: '0.85rem', marginTop: '0.25rem', opacity: quoteLoading ? 0.75 : 1, cursor: quoteLoading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                     >
                       {quoteLoading ? (
                         <>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ animation: 'spin 0.8s linear infinite' }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ animation: 'spin 0.8s linear infinite' }}>
                             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                           </svg>
                           SENDING…
@@ -1594,9 +1589,14 @@ export default function LandingPage() {
                       )}
                     </button>
 
-                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textAlign: 'center', display: 'block', marginTop: '0.25rem' }}>
-                      🔒 We respect your privacy. Your information is safe with us.
-                    </span>
+                    <div className="quote-disclaimer">
+                      <span className="quote-disclaimer-note">
+                        * Quote inquiry only, not a confirmed booking. We&apos;ll confirm date &amp; availability.
+                      </span>
+                      <span className="quote-privacy-note">
+                        🔒 We respect your privacy. Your information is safe with us.
+                      </span>
+                    </div>
                   </form>
                 )}
               </AnimatePresence>
@@ -1693,9 +1693,8 @@ export default function LandingPage() {
               <div className="footer-col">
                 <h4>Hours</h4>
                 <ul style={{ gap: '0.3rem' }}>
-                  <li style={{ color: '#e2e8f0', fontSize: '0.72rem' }}>Mon–Fri: 8AM–8PM</li>
-                  <li style={{ color: '#e2e8f0', fontSize: '0.72rem' }}>Saturday: 9AM–6PM</li>
-                  <li style={{ color: '#e2e8f0', fontSize: '0.72rem' }}>Sunday: 10AM–4PM</li>
+                  <li style={{ color: '#e2e8f0', fontSize: '0.72rem' }}>Mon–Sun: 9:00 AM – 5:00 PM</li>
+                  <li style={{ color: '#38bdf8', fontSize: '0.70rem', fontWeight: 600 }}>Open All 7 Days a Week</li>
                 </ul>
                 <a href="#contact" className="btn btn--primary footer-cta-btn">
                   BOOK NOW →
