@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Menu, X, Sparkles, Star, ChevronLeft, ChevronRight,
+  Menu, X, Sparkles, Star, ChevronLeft, ChevronRight, ChevronDown, HelpCircle,
   MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare, PawPrint, Clock
 } from 'lucide-react';
 import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
@@ -28,7 +28,42 @@ export default function LandingPage() {
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quoteError, setQuoteError] = useState('');
   const [activePriceIdx, setActivePriceIdx] = useState(1);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  const faqs = [
+    {
+      q: 'How does mobile car detailing work? Do you come to my home or workplace?',
+      a: 'Yes, we are 100% mobile! We bring our commercial-grade steam cleaning equipment, hot water extractors, and premium detailing supplies directly to your driveway, workplace, or apartment parking in Kitchener, Waterloo, Cambridge, and Guelph. Studio drop-off is also available at 54 Woodbine Avenue, Kitchener.',
+    },
+    {
+      q: 'Do I need to supply water or an electrical power outlet?',
+      a: 'We typically ask for access to a standard household electrical outlet and an exterior water spigot at your location. If you reside in an apartment or condo with limited utility access, please let us know when booking so we can accommodate your setup or arrange studio drop-off.',
+    },
+    {
+      q: 'How long does a full interior detailing appointment take?',
+      a: 'A standard small car or sedan takes approximately 2 to 2.5 hours. 5-seater and 7-seater SUVs take 2.5 to 3.5 hours. Commercial day cabs and sleeper rigs take 3 to 5 hours depending on interior condition and soil level. We never rush to ensure showroom results.',
+    },
+    {
+      q: 'Can you completely remove winter salt stains and stubborn spills?',
+      a: 'Yes! Winter road salt extraction is one of our top specialties in Ontario. We utilize high-temperature thermal steam and heavy-duty extraction to dissolve and lift embedded rock salt crust without harming carpet fibers.',
+    },
+    {
+      q: 'Do you remove pet hair from seats and carpets?',
+      a: 'Yes! We offer a dedicated 99% Pet Hair Extraction service (+ $20 flat rate add-on). We use specialized mechanical and rubber extraction tools to thoroughly lift embedded pet hairs from seats, carpets, and cargo/trunk compartments.',
+    },
+    {
+      q: 'What areas do you service in Ontario?',
+      a: 'We proudly serve Kitchener, Waterloo, Cambridge, and Guelph, as well as surrounding communities including Baden, Elmira, Conestogo, Woolwich, and Breslau.',
+    },
+    {
+      q: 'What are your prices for mobile interior detailing? Are there hidden fees?',
+      a: 'We maintain 100% transparent flat-rate pricing with no hidden charges: Small Car ($100), 5-Seater SUV ($125), 7-Seater/Large SUV ($150), Pickup Truck ($125), Commercial Day Cab ($140), and Sleeper Bed Semi-Truck ($250). Optional pet hair extraction is a flat +$20 add-on.',
+    },
+    {
+      q: 'How do I book an appointment or get an instant quote?',
+      a: 'You can instantly request a free quote using our quick form below, call or text us directly at (519) 729-5856, or message us on WhatsApp for rapid scheduling.',
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,7 +156,7 @@ export default function LandingPage() {
             <Link href="#about" className="nav__link">About Us</Link>
             <Link href="#gallery" className="nav__link">Gallery</Link>
             <Link href="#pricing" className="nav__link">Pricing</Link>
-
+            <Link href="#faq" className="nav__link">FAQ</Link>
           </div>
 
           {/* Call & Button */}
@@ -166,6 +201,7 @@ export default function LandingPage() {
               <Link href="#about" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
               <Link href="#gallery" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
               <Link href="#pricing" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
+              <Link href="#faq" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>FAQ</Link>
 
               <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '0.85rem', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                 <a href="tel:5197295856" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
@@ -1345,6 +1381,160 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section id="faq" className="section" style={{ paddingBlock: '4.5rem', background: 'var(--color-bg-primary)' }}>
+        <div className="container" style={{ maxWidth: '920px', marginInline: 'auto' }}>
+          <div className="section-header" style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
+            <span className="section-eyebrow" style={{ color: 'var(--color-accent-primary)', fontWeight: 'bold', fontSize: 'var(--text-xs)', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
+              FREQUENTLY ASKED QUESTIONS
+            </span>
+            <h2 className="section-title" style={{ fontSize: 'var(--text-4xl)', fontWeight: 900, color: 'var(--color-accent-secondary)', textTransform: 'uppercase' }}>
+              Got Questions? <span style={{ color: 'var(--color-accent-primary)' }}>We Have Answers</span>
+            </h2>
+            <p className="section-description" style={{ color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0.5rem auto 0', fontSize: 'var(--text-base)', lineHeight: 1.6 }}>
+              Everything you need to know about our mobile detailing process, flat-rate pricing, vehicle preparation, and coverage across Kitchener-Waterloo.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {faqs.map((faq, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={index}
+                  className="faq-item"
+                  style={{
+                    background: isOpen ? '#ffffff' : 'var(--color-bg-secondary)',
+                    border: isOpen ? '1px solid var(--color-accent-primary)' : '1px solid var(--glass-border)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    transition: 'all 0.25s ease',
+                  }}
+                >
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="faq-question"
+                    aria-expanded={isOpen}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '1.2rem 1.5rem',
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      gap: '1rem',
+                      fontSize: '0.98rem',
+                      fontWeight: 700,
+                      color: isOpen ? 'var(--color-accent-primary)' : 'var(--color-text-primary)',
+                      transition: 'color 0.2s ease',
+                    }}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <span
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '50%',
+                          background: isOpen ? 'rgba(227, 27, 35, 0.1)' : 'rgba(0,0,0,0.04)',
+                          color: isOpen ? 'var(--color-accent-primary)' : 'var(--color-text-secondary)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '0.75rem',
+                          fontWeight: 800,
+                          flexShrink: 0,
+                        }}
+                      >
+                        Q{index + 1}
+                      </span>
+                      <span>{faq.q}</span>
+                    </span>
+                    <span
+                      style={{
+                        width: '28px',
+                        height: '28px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: isOpen ? 'var(--color-accent-primary)' : 'transparent',
+                        color: isOpen ? '#ffffff' : 'var(--color-text-secondary)',
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.25s ease, background 0.25s ease, color 0.25s ease',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <ChevronDown size={16} />
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div
+                          style={{
+                            padding: '0 1.5rem 1.25rem 4rem',
+                            color: 'var(--color-text-secondary)',
+                            fontSize: '0.92rem',
+                            lineHeight: 1.65,
+                            borderTop: '1px solid rgba(0,0,0,0.04)',
+                            paddingTop: '0.85rem',
+                          }}
+                        >
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Quick Help Banner under FAQ */}
+          <div
+            style={{
+              marginTop: '2.25rem',
+              padding: '1.25rem 1.75rem',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, rgba(227, 27, 35, 0.05) 0%, rgba(10, 15, 29, 0.03) 100%)',
+              border: '1px dashed rgba(227, 27, 35, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '1rem',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--color-accent-primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <HelpCircle size={20} />
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-accent-secondary)' }}>Have a specific question or custom vehicle?</h4>
+                <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>We respond within minutes on WhatsApp and phone.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <a href="tel:5197295856" className="btn btn--secondary" style={{ padding: '0.55rem 1rem', fontSize: '0.82rem', borderRadius: '6px', border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: '#fff' }}>
+                <Phone size={14} /> (519) 729-5856
+              </a>
+              <a href="https://wa.me/15197295856" target="_blank" rel="noopener noreferrer" className="btn btn--primary" style={{ padding: '0.55rem 1rem', fontSize: '0.82rem', borderRadius: '6px', background: '#25D366', borderColor: '#25D366' }}>
+                <MessageSquare size={14} /> WhatsApp Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Contact & Free Quote Section */}
       <section id="contact" className="section contact-section">
