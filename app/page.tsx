@@ -28,7 +28,8 @@ export default function LandingPage() {
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quoteError, setQuoteError] = useState('');
   const [activePriceIdx, setActivePriceIdx] = useState(1);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [showAllFaqsMobile, setShowAllFaqsMobile] = useState(false);
 
   const faqs = [
     {
@@ -66,6 +67,11 @@ export default function LandingPage() {
   ];
 
   useEffect(() => {
+    // Keep Q1 open by default on desktop, but closed on mobile to prevent excessive scrolling
+    if (typeof window !== 'undefined' && window.innerWidth > 768) {
+      setOpenFaq(0);
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -135,7 +141,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main style={{ background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}>
+    <main style={{ background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }} suppressHydrationWarning>
       {/* Navigation */}
       <nav className={`nav ${isScrolled ? 'nav--scrolled' : ''}`} style={{ borderBottom: isScrolled ? '1px solid var(--glass-border)' : '1px solid transparent' }}>
         <div className="nav__inner container" style={{ paddingBlock: '0.25rem' }}>
@@ -1382,7 +1388,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="section" style={{ paddingBlock: '4.5rem', background: 'var(--color-bg-primary)' }}>
+      <section id="faq" className="section faq-section" style={{ paddingBlock: '4.5rem', background: 'var(--color-bg-primary)' }}>
         <div className="container" style={{ maxWidth: '920px', marginInline: 'auto' }}>
           <div className="section-header" style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
             <span className="section-eyebrow" style={{ color: 'var(--color-accent-primary)', fontWeight: 'bold', fontSize: 'var(--text-xs)', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
@@ -1396,13 +1402,16 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }} className="faq-list">
             {faqs.map((faq, index) => {
               const isOpen = openFaq === index;
+              const isExtraOnMobile = index >= 3;
+              const isHiddenOnMobile = isExtraOnMobile && !showAllFaqsMobile;
+
               return (
                 <div
                   key={index}
-                  className="faq-item"
+                  className={`faq-item ${isHiddenOnMobile ? 'faq-item--mobile-hidden' : ''}`}
                   style={{
                     background: isOpen ? '#ffffff' : 'var(--color-bg-secondary)',
                     border: isOpen ? '1px solid var(--color-accent-primary)' : '1px solid var(--glass-border)',
@@ -1412,7 +1421,16 @@ export default function LandingPage() {
                   }}
                 >
                   <button
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    onClick={(e) => {
+                      const willOpen = openFaq !== index;
+                      setOpenFaq(willOpen ? index : null);
+                      if (willOpen && typeof window !== 'undefined' && window.innerWidth <= 768) {
+                        const btn = e.currentTarget;
+                        setTimeout(() => {
+                          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                      }
+                    }}
                     className="faq-question"
                     aria-expanded={isOpen}
                     style={{
@@ -1434,6 +1452,7 @@ export default function LandingPage() {
                   >
                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                       <span
+                        className="faq-badge"
                         style={{
                           width: '32px',
                           height: '32px',
@@ -1453,6 +1472,7 @@ export default function LandingPage() {
                       <span>{faq.q}</span>
                     </span>
                     <span
+                      className="faq-chevron"
                       style={{
                         width: '28px',
                         height: '28px',
@@ -1481,6 +1501,7 @@ export default function LandingPage() {
                         style={{ overflow: 'hidden' }}
                       >
                         <div
+                          className="faq-answer"
                           style={{
                             padding: '0 1.5rem 1.25rem 4rem',
                             color: 'var(--color-text-secondary)',
@@ -1500,8 +1521,33 @@ export default function LandingPage() {
             })}
           </div>
 
+          {/* Mobile "View All Questions" Toggle Button */}
+          <div className="faq-mobile-toggle-wrapper">
+            <button
+              onClick={() => {
+                if (showAllFaqsMobile && openFaq !== null && openFaq >= 3) {
+                  setOpenFaq(null);
+                }
+                setShowAllFaqsMobile(!showAllFaqsMobile);
+              }}
+              className="faq-mobile-toggle-btn"
+              type="button"
+              aria-label={showAllFaqsMobile ? 'Show fewer questions' : 'View all 8 questions'}
+            >
+              <span>{showAllFaqsMobile ? 'Show Fewer Questions' : 'View All 8 Questions'}</span>
+              <ChevronDown
+                size={16}
+                style={{
+                  transform: showAllFaqsMobile ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.25s ease',
+                }}
+              />
+            </button>
+          </div>
+
           {/* Quick Help Banner under FAQ */}
           <div
+            className="faq-help-banner"
             style={{
               marginTop: '2.25rem',
               padding: '1.25rem 1.75rem',
