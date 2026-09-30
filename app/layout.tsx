@@ -4,8 +4,16 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { AnalyticsEvents } from './analytics-events';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   themeColor: '#E31B23',
@@ -57,7 +65,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.a-shineautomobiledetailing.ca/porsche-hero.png',
+        url: 'https://www.a-shineautomobiledetailing.ca/porsche-hero.webp',
         width: 1200,
         height: 630,
         alt: 'A-Shine Auto Mobile Detailing in Kitchener-Waterloo',
@@ -69,7 +77,7 @@ export const metadata: Metadata = {
     title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto Mobile Detailing',
     description:
       'Mobile interior car detailing in Kitchener-Waterloo. Deep steam cleaning, winter salt removal, and shampooing right in your driveway. 5.0★ rated.',
-    images: ['https://www.a-shineautomobiledetailing.ca/porsche-hero.png'],
+    images: ['https://www.a-shineautomobiledetailing.ca/porsche-hero.webp'],
   },
   robots: {
     index: true,
@@ -258,6 +266,13 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="icon" href="/icon.png" sizes="192x192" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
+        <link
+          rel="preload"
+          as="image"
+          href="/porsche-hero.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(automotiveBusinessJsonLd) }}

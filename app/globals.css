@@ -59,13 +59,13 @@
   /* Colors — Text */
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
-  --color-text-muted: #64748b;
+  --color-text-muted: #475569;
   --color-text-accent: #E31B23;
   --color-text-inverse: #ffffff;
 
   /* Typography */
-  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Font Sizes — Fluid */
@@ -674,7 +674,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url('/hero-bg.jpg');
+  background-image: url('/hero-bg.webp');
   background-size: cover;
   background-position: center;
 }
@@ -2136,12 +2136,12 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 3px;
   left: 3px;
-  transition: left 0.2s ease;
+  transition: transform 0.2s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
 .quote-pet-hair-toggle.active .toggle-handle {
-  left: 19px;
+  transform: translateX(16px);
 }
 
 .quote-pet-hair-toggle .pet-hair-text-wrap {
@@ -3161,7 +3161,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 1.5rem;
   width: max-content;
-  animation: marquee-forward 260s linear infinite;
+  animation: marquee-forward 40s linear infinite;
 }
 
 .reviews-marquee-track-ltr:hover {
@@ -3172,7 +3172,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 1.5rem;
   width: max-content;
-  animation: marquee-forward 260s linear infinite;
+  animation: marquee-forward 40s linear infinite;
 }
 
 .reviews-marquee-track-rtl:hover {

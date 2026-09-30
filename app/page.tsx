@@ -11,7 +11,9 @@ import {
 } from 'lucide-react';
 import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
 
-
+// Cap reviews to 7 per row (14 with clone) to eliminate ~7,100 redundant DOM nodes while maintaining infinite CSS marquee
+const DISPLAY_REVIEWS_1 = REVIEWS_ROW_1.slice(0, 7);
+const DISPLAY_REVIEWS_2 = REVIEWS_ROW_2.slice(0, 7);
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -69,15 +71,10 @@ export default function LandingPage() {
   ];
 
   useEffect(() => {
-    // Keep Q1 open by default on desktop, but closed on mobile to prevent excessive scrolling
-    if (typeof window !== 'undefined' && window.innerWidth > 768) {
-      setOpenFaq(0);
-    }
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -251,48 +248,42 @@ export default function LandingPage() {
         <div className="container hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1.2fr', gap: '2rem', alignItems: 'center', position: 'relative', zIndex: 2, width: '100%' }}>
 
           {/* Hero Left Content */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
+          <div
             style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: '580px', position: 'relative', zIndex: 10 }}
           >
-            <motion.span variants={fadeIn} style={{ fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.2em', color: 'var(--color-accent-primary)', display: 'flex', alignItems: 'center', gap: '0.6rem', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.2em', color: 'var(--color-accent-primary)', display: 'flex', alignItems: 'center', gap: '0.6rem', textTransform: 'uppercase' }}>
               <span style={{ width: '20px', height: '2px', background: 'var(--color-accent-primary)' }}></span>
               PREMIUM MOBILE AUTO DETAILING
-            </motion.span>
+            </span>
 
-            <motion.h1
-              variants={fadeIn}
+            <h1
               className="hero-title"
               style={{ fontSize: 'clamp(2rem, 1.6rem + 3vw, 3.8rem)', fontWeight: 900, lineHeight: 1.15, color: 'var(--color-accent-secondary)', letterSpacing: '-0.02em', textTransform: 'none' }}
             >
               Mobile Interior Car Detailing – <span style={{ color: 'var(--color-accent-primary)' }}>Kitchener-Waterloo</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              variants={fadeIn}
+            <p
               style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-accent-secondary)', marginTop: '0.25rem', marginBottom: '0.5rem', lineHeight: '1.3' }}
             >
               Restore the <span style={{ color: 'var(--color-accent-primary)' }}>Shine</span>. Protect the Finish. Drive with Pride.
-            </motion.p>
+            </p>
 
-            <motion.p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)', marginBottom: '2rem', lineHeight: '1.6' }}>
+            <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)', marginBottom: '2rem', lineHeight: '1.6' }}>
               A-Shine Auto Mobile Detailing provides mobile interior car detailing in Kitchener-Waterloo, bringing full-service cleaning directly to your driveway or workplace. We specialize in interior deep shampooing, steam sanitization, and stain extraction — restoring your vehicle&apos;s interior to a showroom finish.
-            </motion.p>
+            </p>
 
-            <motion.div variants={fadeIn} className="hero-cta-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+            <div className="hero-cta-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
               <a href="#contact" className="btn btn--primary btn--lg" style={{ borderRadius: '8px' }}>
                 BOOK APPOINTMENT NOW <ArrowRight size={18} />
               </a>
               <a href="#services" className="btn btn--secondary btn--lg" style={{ border: '1px solid var(--color-accent-primary)', color: 'var(--color-accent-primary)', background: 'transparent', borderRadius: '8px' }}>
                 VIEW OUR SERVICES
               </a>
-            </motion.div>
+            </div>
 
             {/* Trust Metrics */}
-            <motion.div
-              variants={fadeIn}
+            <div
               className="hero-metrics-container"
               style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', borderTop: '1px solid var(--glass-border)', paddingTop: '1.75rem', marginTop: '1.5rem', flexWrap: 'wrap' }}
             >
@@ -307,34 +298,31 @@ export default function LandingPage() {
                     {metric.icon}
                   </div>
                   <div className="hero-metric-text">
-                    <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, color: 'var(--color-text-primary)' }}>{metric.title}</h4>
+                    <p style={{ fontSize: '0.85rem', fontWeight: 'bold', margin: 0, color: 'var(--color-text-primary)' }}>{metric.title}</p>
                     <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', margin: 0 }}>{metric.desc}</p>
                   </div>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Hero Right Column (Car & Overlays) */}
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%', minHeight: '400px' }} className="hero-right-col">
             {/* Porsche Image Container */}
             <div style={{ width: '160%', marginLeft: '-45%', marginTop: '-135px', marginBottom: '-75px', zIndex: 1, position: 'relative', overflow: 'hidden' }}>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ width: '100%', position: 'relative' }}
-              >
+              <div style={{ width: '100%', position: 'relative' }}>
                 <Image
-                  src="/porsche-hero.png"
+                  src="/porsche-hero.webp"
                   alt="Pristine White Porsche 911"
                   width={1024}
                   height={572}
                   sizes="(max-width: 768px) 100vw, 60vw"
-                  preload
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
-              </motion.div>
+              </div>
               {/* Edge Blending Gradients to blend borders with white background */}
               <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: '32%', background: 'linear-gradient(to right, #ffffff, transparent)', zIndex: 3 }} />
               <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '10%', background: 'linear-gradient(to left, #ffffff, transparent)', zIndex: 3 }} />
@@ -350,7 +338,7 @@ export default function LandingPage() {
                   <Sparkles size={18} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Interior Shampoo</h4>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Interior Shampoo</p>
                   <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Seats, Carpets & Trunk</p>
                 </div>
               </div>
@@ -360,7 +348,7 @@ export default function LandingPage() {
                   <Shield size={18} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Leather & Trim Care</h4>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Leather & Trim Care</p>
                   <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Cleaned & Conditioned</p>
                 </div>
               </div>
@@ -370,7 +358,7 @@ export default function LandingPage() {
                   <Check size={18} strokeWidth={3} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Salt & Stain Removal</h4>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Salt & Stain Removal</p>
                   <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Deep Steam Cleansing</p>
                 </div>
               </div>
@@ -412,12 +400,12 @@ export default function LandingPage() {
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}
           >
             {[
-              { img: '/service-ai-interior.png', icon: '🧽', title: 'Full Interior Shampooing', desc: 'Deep shampooing and stain extraction for cloth & leather seats, carpets, dashboard, vents, console, door jambs, and trunk.', pos: 'center 45%' },
-              { img: '/service-ai-steam.png', icon: '🧼', title: 'Steam Cleansing & Salt Removal', desc: 'High-temperature steam cleansing that dissolves embedded winter salt, grime, bacteria, and stubborn floor mat stains.', pos: 'center 50%' },
-              { img: '/service-ai-stain.png', icon: '✨', title: 'Seat Stain & Spill Extraction', desc: 'Specialized hot-water extraction and conditioning for accidental food, drink, or pet spills on seats and carpets.', pos: 'center 50%' },
-              { img: '/service-ai-odor.png', icon: '💨', title: 'Odor & Air Sanitization', desc: 'Complete cabin deodorization and sanitization using ozone therapy and thermal steam to destroy bacteria, smoke, and mold odors.', pos: 'center 50%' },
-              { img: '/service-ai-truck.png', icon: '🚛', title: 'Truck & Commercial Cabs', desc: 'Professional mobile interior detailing for semi-trucks, dump trucks, loaders, and commercial vehicle cabs.', pos: 'center 45%' },
-              { img: '/service-van.jpg', icon: '🏠', title: 'Mobile or Studio Drop-off', desc: 'We bring our full mobile unit directly to your driveway, or you can drop off your vehicle at our home studio.', pos: 'center 50%' }
+              { img: '/service-ai-interior.webp', icon: '🧽', title: 'Full Interior Shampooing', desc: 'Deep shampooing and stain extraction for cloth & leather seats, carpets, dashboard, vents, console, door jambs, and trunk.', pos: 'center 45%' },
+              { img: '/service-ai-steam.webp', icon: '🧼', title: 'Steam Cleansing & Salt Removal', desc: 'High-temperature steam cleansing that dissolves embedded winter salt, grime, bacteria, and stubborn floor mat stains.', pos: 'center 50%' },
+              { img: '/service-ai-stain.webp', icon: '✨', title: 'Seat Stain & Spill Extraction', desc: 'Specialized hot-water extraction and conditioning for accidental food, drink, or pet spills on seats and carpets.', pos: 'center 50%' },
+              { img: '/service-ai-odor.webp', icon: '💨', title: 'Odor & Air Sanitization', desc: 'Complete cabin deodorization and sanitization using ozone therapy and thermal steam to destroy bacteria, smoke, and mold odors.', pos: 'center 50%' },
+              { img: '/service-ai-truck.webp', icon: '🚛', title: 'Truck & Commercial Cabs', desc: 'Professional mobile interior detailing for semi-trucks, dump trucks, loaders, and commercial vehicle cabs.', pos: 'center 45%' },
+              { img: '/service-van.webp', icon: '🏠', title: 'Mobile or Studio Drop-off', desc: 'We bring our full mobile unit directly to your driveway, or you can drop off your vehicle at our home studio.', pos: 'center 50%' }
             ].map((srv, i) => (
               <motion.div
                 key={i}
@@ -478,7 +466,7 @@ export default function LandingPage() {
               {/* Main image */}
               <div style={{ position: 'relative', width: '100%', height: '420px' }}>
                 <Image
-                  src="/service-ai-interior.png"
+                  src="/service-ai-interior.webp"
                   alt="Interior shampoo and steam cleaning of a car seat"
                   fill
                   sizes="(max-width: 768px) 100vw, 384px"
@@ -573,11 +561,11 @@ export default function LandingPage() {
           <div className="gallery-marquee-track">
             {/* Set 1 */}
             {[
-              { src: '/gallery-toyota-4runner.jpg', label: 'Interior & Exterior Detail' },
-              { src: '/gallery-mack-truck.jpg', label: 'Commercial Dump Truck Detail' },
-              { src: '/gallery-freightliner.jpg', label: 'Semi Truck Interior Detail' },
-              { src: '/gallery-gehl-loader.jpg', label: 'Heavy Equipment Cab Detail' },
-              { src: '/gallery-toyota-highlander.jpg', label: 'Full Interior Detailing' },
+              { src: '/gallery-toyota-4runner.webp', label: 'Interior & Exterior Detail' },
+              { src: '/gallery-mack-truck.webp', label: 'Commercial Dump Truck Detail' },
+              { src: '/gallery-freightliner.webp', label: 'Semi Truck Interior Detail' },
+              { src: '/gallery-gehl-loader.webp', label: 'Heavy Equipment Cab Detail' },
+              { src: '/gallery-toyota-highlander.webp', label: 'Full Interior Detailing' },
             ].map((item, i) => (
               <div
                 key={`g1-${i}`}
@@ -612,14 +600,15 @@ export default function LandingPage() {
             ))}
             {/* Set 2 — duplicate for seamless loop */}
             {[
-              { src: '/gallery-toyota-4runner.jpg', label: 'Interior & Exterior Detail' },
-              { src: '/gallery-mack-truck.jpg', label: 'Commercial Dump Truck Detail' },
-              { src: '/gallery-freightliner.jpg', label: 'Semi Truck Interior Detail' },
-              { src: '/gallery-gehl-loader.jpg', label: 'Heavy Equipment Cab Detail' },
-              { src: '/gallery-toyota-highlander.jpg', label: 'Full Interior Detailing' },
+              { src: '/gallery-toyota-4runner.webp', label: 'Interior & Exterior Detail' },
+              { src: '/gallery-mack-truck.webp', label: 'Commercial Dump Truck Detail' },
+              { src: '/gallery-freightliner.webp', label: 'Semi Truck Interior Detail' },
+              { src: '/gallery-gehl-loader.webp', label: 'Heavy Equipment Cab Detail' },
+              { src: '/gallery-toyota-highlander.webp', label: 'Full Interior Detailing' },
             ].map((item, i) => (
               <div
                 key={`g2-${i}`}
+                aria-hidden="true"
                 className="gallery-card"
                 style={{
                   borderRadius: '16px',
@@ -657,11 +646,11 @@ export default function LandingPage() {
           <div className="gallery-marquee-track-rtl">
             {/* Set 1 */}
             {[
-              { src: '/gallery-hyundai-elantra.png', label: 'Interior Shampoo & Detail' },
-              { src: '/gallery-audi-interior.png',   label: 'Interior Deep Clean' },
-              { src: '/gallery-audi-q5.jpg',         label: 'Full Interior & Exterior' },
-              { src: '/gallery-tesla-modelx.jpg',    label: 'Full Vehicle Detailing' },
-              { src: '/gallery-mercedes-engine.jpg', label: 'Leather & Vinyl Conditioning' },
+              { src: '/gallery-hyundai-elantra.webp', label: 'Interior Shampoo & Detail' },
+              { src: '/gallery-audi-interior.webp',   label: 'Interior Deep Clean' },
+              { src: '/gallery-audi-q5.webp',         label: 'Full Interior & Exterior' },
+              { src: '/gallery-tesla-modelx.webp',    label: 'Full Vehicle Detailing' },
+              { src: '/gallery-mercedes-engine.webp', label: 'Leather & Vinyl Conditioning' },
             ].map((item, i) => (
               <div
                 key={`r1-${i}`}
@@ -696,14 +685,15 @@ export default function LandingPage() {
             ))}
             {/* Set 2 — duplicate for seamless loop */}
             {[
-              { src: '/gallery-hyundai-elantra.png', label: 'Interior Shampoo & Detail' },
-              { src: '/gallery-audi-interior.png',   label: 'Interior Deep Clean' },
-              { src: '/gallery-audi-q5.jpg',         label: 'Full Interior & Exterior' },
-              { src: '/gallery-tesla-modelx.jpg',    label: 'Full Vehicle Detailing' },
-              { src: '/gallery-mercedes-engine.jpg', label: 'Leather & Vinyl Conditioning' },
+              { src: '/gallery-hyundai-elantra.webp', label: 'Interior Shampoo & Detail' },
+              { src: '/gallery-audi-interior.webp',   label: 'Interior Deep Clean' },
+              { src: '/gallery-audi-q5.webp',         label: 'Full Interior & Exterior' },
+              { src: '/gallery-tesla-modelx.webp',    label: 'Full Vehicle Detailing' },
+              { src: '/gallery-mercedes-engine.webp', label: 'Leather & Vinyl Conditioning' },
             ].map((item, i) => (
               <div
                 key={`r2-${i}`}
+                aria-hidden="true"
                 className="gallery-card"
                 style={{
                   borderRadius: '16px',
@@ -752,7 +742,7 @@ export default function LandingPage() {
         <div className="marquee-container" style={{ paddingBlock: '0.75rem', marginTop: '0.5rem' }}>
           <div className="reviews-marquee-track-ltr">
             {/* Set 1 */}
-            {REVIEWS_ROW_1.map((review, i) => {
+            {DISPLAY_REVIEWS_1.map((review, i) => {
               const parts = review.name.trim().split(/\s+/);
               const initials = parts.length > 1 
                 ? `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
@@ -798,7 +788,7 @@ export default function LandingPage() {
               );
             })}
             {/* Set 2 (Duplicate for loop continuity) */}
-            {REVIEWS_ROW_1.map((review, i) => {
+            {DISPLAY_REVIEWS_1.map((review, i) => {
               const parts = review.name.trim().split(/\s+/);
               const initials = parts.length > 1 
                 ? `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
@@ -851,7 +841,7 @@ export default function LandingPage() {
         <div className="marquee-container" style={{ paddingBlock: '0.75rem', marginTop: '1rem' }}>
           <div className="reviews-marquee-track-ltr">
             {/* Set 1 */}
-            {REVIEWS_ROW_2.map((review, i) => {
+            {DISPLAY_REVIEWS_2.map((review, i) => {
               const parts = review.name.trim().split(/\s+/);
               const initials = parts.length > 1 
                 ? `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
@@ -897,7 +887,7 @@ export default function LandingPage() {
               );
             })}
             {/* Set 2 (Duplicate for loop continuity) */}
-            {REVIEWS_ROW_2.map((review, i) => {
+            {DISPLAY_REVIEWS_2.map((review, i) => {
               const parts = review.name.trim().split(/\s+/);
               const initials = parts.length > 1 
                 ? `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
@@ -944,6 +934,33 @@ export default function LandingPage() {
               );
             })}
           </div>
+        </div>
+
+        {/* See all reviews on Google CTA */}
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          {/* TODO: Add Google Business Profile URL when available */}
+          <a
+            href="https://maps.google.com/?cid=TODO"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--secondary"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.75rem 1.75rem',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              border: '1px solid var(--color-accent-primary)',
+              color: 'var(--color-accent-primary)',
+              background: 'transparent',
+            }}
+          >
+            <span>See all 250+ reviews on Google</span>
+            <ArrowRight size={16} />
+          </a>
         </div>
       </section>
 
@@ -1186,7 +1203,7 @@ export default function LandingPage() {
                     aria-label={`Go to package ${dotIdx + 1}`}
                     style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
                   >
-                    <span style={{ width: dotIdx === activePriceIdx ? '20px' : '7px', height: '7px', borderRadius: '4px', background: dotIdx === activePriceIdx ? 'var(--color-accent-primary)' : '#cbd5e1', transition: 'all 0.3s ease', display: 'block' }} />
+                    <span style={{ width: dotIdx === activePriceIdx ? '20px' : '7px', height: '7px', borderRadius: '4px', background: dotIdx === activePriceIdx ? 'var(--color-accent-primary)' : '#cbd5e1', transition: 'background-color 0.2s ease', display: 'block' }} />
                   </button>
                 ))}
               </div>
