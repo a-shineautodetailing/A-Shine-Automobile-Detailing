@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { sendGAEvent } from '@next/third-parties/google';
 import {
   Menu, X, Sparkles, Star, ChevronLeft, ChevronRight, ChevronDown, HelpCircle,
   MapPin, Phone, Mail, ArrowRight, Shield, Check, MessageSquare, PawPrint, Clock
@@ -15,6 +16,7 @@ import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from '@/data/reviews';
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [quoteForm, setQuoteForm] = useState({
     name: '',
     phone: '',
@@ -98,7 +100,7 @@ export default function LandingPage() {
       const selectedService = serviceLabels[quoteForm.service] || quoteForm.service || 'Not specified';
 
       const message = [
-        'New Quote Request - A-Shine Detailing',
+        'New Quote Request - A-Shine Auto Mobile Detailing',
         '',
         `Name: ${quoteForm.name.trim()}`,
         `Phone: ${quoteForm.phone.trim()}`,
@@ -116,6 +118,16 @@ export default function LandingPage() {
 
       // Success feedback & clear form
       setQuoteSubmitted(true);
+
+      // Track lead generation in GA4 only after success
+      if (typeof window !== 'undefined') {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { form_name: 'quote' });
+        } else {
+          sendGAEvent('event', 'generate_lead', { form_name: 'quote' });
+        }
+      }
+
       setQuoteForm({ name: '', phone: '', email: '', vehicle: '', service: '', petHairExtraction: false, details: '' });
       setTimeout(() => setQuoteSubmitted(false), 6000);
 
@@ -148,7 +160,7 @@ export default function LandingPage() {
           {/* Logo */}
           <Link href="/" className="nav__logo" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '46px', height: '46px', flexShrink: 0 }}>
-              <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
               <span style={{ fontSize: '1.35rem', fontWeight: 900, color: 'var(--color-accent-secondary)', letterSpacing: '-0.02em' }}>A-SHINE</span>
@@ -197,7 +209,7 @@ export default function LandingPage() {
               <div className="mobile-menu__header">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', flexShrink: 0 }}>
-                    <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>A-SHINE</span>
                 </div>
@@ -224,6 +236,7 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section
+        id="hero"
         className="section hero-section-bg"
         style={{
           minHeight: '92vh',
@@ -265,7 +278,7 @@ export default function LandingPage() {
             </motion.p>
 
             <motion.p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)', marginBottom: '2rem', lineHeight: '1.6' }}>
-              A-Shine provides mobile interior car detailing in Kitchener-Waterloo, bringing full-service cleaning directly to your driveway or workplace. We specialize in interior deep shampooing, steam sanitization, and stain extraction — restoring your vehicle&apos;s interior to a showroom finish.
+              A-Shine Auto Mobile Detailing provides mobile interior car detailing in Kitchener-Waterloo, bringing full-service cleaning directly to your driveway or workplace. We specialize in interior deep shampooing, steam sanitization, and stain extraction — restoring your vehicle&apos;s interior to a showroom finish.
             </motion.p>
 
             <motion.div variants={fadeIn} className="hero-cta-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
@@ -466,7 +479,7 @@ export default function LandingPage() {
               <div style={{ position: 'relative', width: '100%', height: '420px' }}>
                 <Image
                   src="/service-ai-interior.png"
-                  alt="Professional AI generated interior car detailing"
+                  alt="Interior shampoo and steam cleaning of a car seat"
                   fill
                   sizes="(max-width: 768px) 100vw, 384px"
                   className="rounded-2xl shadow-xl"
@@ -794,6 +807,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={`r1-s2-${i}`}
+                  aria-hidden="true"
                   className="glass-card review-card"
                   style={{
                     padding: '1.75rem 1.5rem',
@@ -892,6 +906,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={`r2-s2-${i}`}
+                  aria-hidden="true"
                   className="glass-card review-card"
                   style={{
                     padding: '1.75rem 1.5rem',
@@ -1860,7 +1875,7 @@ export default function LandingPage() {
                 padding: '4px',
                 flexShrink: 0
               }}>
-                <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
                 <span style={{ fontSize: '1.05rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em' }}>A-SHINE</span>
@@ -1873,9 +1888,9 @@ export default function LandingPage() {
             {/* Social handles */}
             <div style={{ display: 'flex', gap: '0', alignItems: 'center' }}>
               {[
-                { name: 'Facebook', url: 'https://www.facebook.com/people/A-shine-Automobile-Detailing/61580395624520/#' },
+                { name: 'Facebook', url: 'https://www.facebook.com/people/A-shine-Automobile-Detailing/61580395624520/' },
                 { name: 'Instagram', url: 'https://www.instagram.com/ashineautomobiledetailing/' },
-                { name: 'TikTok', url: '#' }
+                { name: 'TikTok', url: 'https://www.tiktok.com/@ashineautomobiledetailing' }
               ].map((social, i) => (
                 <span key={social.name} style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
                   <a
@@ -1946,12 +1961,21 @@ export default function LandingPage() {
         {/* Footer Bottom */}
         <div className="container footer-bottom" style={{ marginTop: '1.5rem', paddingTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <span style={{ fontSize: '0.75rem', color: '#94a3b8', textAlign: 'center' }}>
-            © 2026 A-SHINE Auto Mobile Detailing. All rights reserved.
+            © 2026 A-Shine Auto Mobile Detailing. All rights reserved.
           </span>
           <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem' }}>
-            <span style={{ color: '#cbd5e1', cursor: 'pointer' }}>Privacy Policy</span>
-            <span style={{ color: '#cbd5e1', cursor: 'pointer' }}>Terms of Service</span>
+            <button
+              type="button"
+              onClick={() => setIsPrivacyModalOpen(true)}
+              style={{ background: 'none', border: 'none', padding: 0, color: '#cbd5e1', cursor: 'pointer', fontSize: '0.75rem', textDecoration: 'underline' }}
+            >
+              Privacy Policy
+            </button>
+            <span style={{ color: '#cbd5e1' }}>Terms of Service</span>
           </div>
+          <p style={{ width: '100%', fontSize: '0.72rem', color: '#94a3b8', textAlign: 'center', margin: '0.6rem 0 0 0', lineHeight: 1.5 }}>
+            This website uses Google Analytics to measure traffic and lead actions (page views, clicks on call/WhatsApp/booking buttons, and quote form submissions). Data is securely processed by Google.
+          </p>
         </div>
       </footer>
 
@@ -2019,6 +2043,79 @@ export default function LandingPage() {
           <Phone size={22} fill="currentColor" />
         </a>
       </div>
+
+      {/* Privacy Policy Modal */}
+      <AnimatePresence>
+        {isPrivacyModalOpen && (
+          <div
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 10000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1rem',
+              background: 'rgba(0, 0, 0, 0.7)',
+              backdropFilter: 'blur(4px)',
+            }}
+            onClick={() => setIsPrivacyModalOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: 'var(--color-bg-primary)',
+                color: 'var(--color-text-primary)',
+                borderRadius: '16px',
+                padding: '2rem',
+                maxWidth: '520px',
+                width: '100%',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                border: '1px solid var(--glass-border)',
+                position: 'relative',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Privacy Policy</h3>
+                <button
+                  type="button"
+                  onClick={() => setIsPrivacyModalOpen(false)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--color-text-secondary)',
+                    padding: '0.25rem',
+                  }}
+                  aria-label="Close Privacy Policy"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: '0 0 1rem 0' }}>
+                A-Shine Auto Mobile Detailing values your privacy. This website uses Google Analytics to measure traffic and lead actions (page views, clicks on call/WhatsApp/booking buttons, and quote form submissions). That data is securely processed by Google to help us monitor website performance and improve customer service.
+              </p>
+              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
+                We do not sell, rent, or trade your personal contact details to any third-party advertisers. When you contact us or request a free quote, your details are used strictly to provide you with detailing services and scheduling quotes.
+              </p>
+              <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsPrivacyModalOpen(false)}
+                  className="btn btn--primary"
+                  style={{ borderRadius: '8px', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

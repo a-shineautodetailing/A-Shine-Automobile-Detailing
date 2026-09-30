@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Outfit } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { AnalyticsEvents } from './analytics-events';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -14,7 +15,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.a-shineautomobiledetailing.ca'),
-  title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto',
+  title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto Mobile Detailing',
   description:
     'Top-rated mobile interior car detailing in Kitchener, Waterloo, Cambridge & Guelph. Deep steam extraction, winter salt removal, seat shampooing & truck detailing. We come to you — 5.0★ rated. Book today!',
   keywords: [
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   creator: 'A-Shine Auto Mobile Detailing',
   publisher: 'A-Shine Auto Mobile Detailing',
   alternates: {
-    canonical: 'https://www.a-shineautomobiledetailing.ca',
+    canonical: 'https://www.a-shineautomobiledetailing.ca/',
   },
   icons: {
     icon: [
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto',
+    title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto Mobile Detailing',
     description:
       'Professional mobile interior car detailing in Kitchener-Waterloo. Steam cleaning, salt & stain extraction, seat shampooing — we come to you. 5.0★ rated.',
     url: 'https://www.a-shineautomobiledetailing.ca',
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto',
+    title: 'Mobile Interior Car Detailing Kitchener-Waterloo | A-Shine Auto Mobile Detailing',
     description:
       'Mobile interior car detailing in Kitchener-Waterloo. Deep steam cleaning, winter salt removal, and shampooing right in your driveway. 5.0★ rated.',
     images: ['https://www.a-shineautomobiledetailing.ca/porsche-hero.png'],
@@ -91,20 +92,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const localBusinessJsonLd = {
+  const automotiveBusinessJsonLd = {
     '@context': 'https://schema.org',
-    '@type': ['AutoDetailingService', 'AutomotiveBusiness', 'LocalBusiness'],
-    '@id': 'https://www.a-shineautomobiledetailing.ca/#localbusiness',
+    '@type': 'AutomotiveBusiness',
+    '@id': 'https://www.a-shineautomobiledetailing.ca/#automotivebusiness',
     name: 'A-Shine Auto Mobile Detailing',
-    alternateName: ['A-Shine Auto Detailing', 'A-Shine Detailing Kitchener'],
     url: 'https://www.a-shineautomobiledetailing.ca',
     telephone: '+1-519-729-5856',
     email: 'manager@a-shineautomobiledetailing.ca',
+    priceRange: '$100-$250',
     image: 'https://www.a-shineautomobiledetailing.ca/porsche-hero.png',
     logo: 'https://www.a-shineautomobiledetailing.ca/logo.png',
-    priceRange: '$100–$250 CAD',
-    currenciesAccepted: 'CAD',
-    paymentAccepted: 'Cash, Credit Card, Debit Card, Interac e-Transfer',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '54 Woodbine Avenue',
@@ -113,37 +111,7 @@ export default function RootLayout({
       postalCode: 'N2R 1V1',
       addressCountry: 'CA',
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 43.4077,
-      longitude: -80.4578,
-    },
-    areaServed: [
-      {
-        '@type': 'City',
-        name: 'Kitchener',
-        sameAs: 'https://en.wikipedia.org/wiki/Kitchener,_Ontario',
-      },
-      {
-        '@type': 'City',
-        name: 'Waterloo',
-        sameAs: 'https://en.wikipedia.org/wiki/Waterloo,_Ontario',
-      },
-      {
-        '@type': 'City',
-        name: 'Cambridge',
-        sameAs: 'https://en.wikipedia.org/wiki/Cambridge,_Ontario',
-      },
-      {
-        '@type': 'City',
-        name: 'Guelph',
-        sameAs: 'https://en.wikipedia.org/wiki/Guelph',
-      },
-      {
-        '@type': 'AdministrativeArea',
-        name: 'Region of Waterloo',
-      },
-    ],
+    areaServed: ['Kitchener', 'Waterloo', 'Cambridge', 'Guelph'],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -160,65 +128,10 @@ export default function RootLayout({
         closes: '17:00',
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      bestRating: '5',
-      worstRating: '1',
-      ratingCount: '420',
-      reviewCount: '420',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Mobile Interior Car Detailing Packages',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          name: 'Small Car Full Interior Shampoo & Detailing',
-          description: 'Sedans, coupes & compact cars. Full seat shampooing, carpet steam extraction, salt removal, dashboard & trunk clean.',
-          price: '100.00',
-          priceCurrency: 'CAD',
-        },
-        {
-          '@type': 'Offer',
-          name: 'SUV (5 Seats) Full Interior Shampoo & Detailing',
-          description: '5-Seater SUVs, crossovers & pickups. Deep seat shampooing, carpet extraction, console & cargo detailing.',
-          price: '125.00',
-          priceCurrency: 'CAD',
-        },
-        {
-          '@type': 'Offer',
-          name: '7-Seater / Large Full Interior Shampoo & Detailing',
-          description: '7-Seater SUVs, minivans & large trucks. All 3 rows shampooing, heavy salt removal & steam sanitization.',
-          price: '150.00',
-          priceCurrency: 'CAD',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Pickup Truck Detailing',
-          description: 'Standard pickup trucks & work trucks. Cab seat shampooing, floor mat extraction, door panels & salt removal.',
-          price: '125.00',
-          priceCurrency: 'CAD',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Day Cab Commercial Truck Detailing',
-          description: 'Semi-trucks & commercial day cabs. Seat shampooing, floor & pedal deep clean, dashboard & steam sanitization.',
-          price: '140.00',
-          priceCurrency: 'CAD',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Sleeper Bed Semi-Truck Detailing',
-          description: 'Sleeper cab semi-trucks & long-haul rigs. Cab & sleeper berth shampooing, mattress deep clean & steam sanitization.',
-          price: '250.00',
-          priceCurrency: 'CAD',
-        },
-      ],
-    },
     sameAs: [
       'https://www.facebook.com/people/A-shine-Automobile-Detailing/61580395624520/',
       'https://www.instagram.com/ashineautomobiledetailing/',
+      'https://www.tiktok.com/@ashineautomobiledetailing',
     ],
   };
 
@@ -347,7 +260,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(automotiveBusinessJsonLd) }}
         />
         <script
           type="application/ld+json"
@@ -364,7 +277,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
         {children}
-        <GoogleAnalytics gaId="G-2S5G4J3R2W" />
+        <AnalyticsEvents />
+        {process.env.NODE_ENV === 'production' && (
+          <GoogleAnalytics gaId="G-VYKPSQGVGJ" />
+        )}
       </body>
     </html>
   );
