@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Outfit } from 'next/font/google';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import { AnalyticsEvents } from './analytics-events';
 import './globals.css';
 
@@ -13,6 +13,7 @@ const outfit = Outfit({
   subsets: ['latin'],
   variable: '--font-outfit',
   display: 'swap',
+  preload: false,
 });
 
 export const viewport: Viewport = {
@@ -289,12 +290,33 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
+        {/* Early dataLayer stub so analytics events queue without blocking LCP */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}`,
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
         {children}
         <AnalyticsEvents />
         {process.env.NODE_ENV === 'production' && (
-          <GoogleAnalytics gaId="G-VYKPSQGVGJ" />
+          <>
+            <Script
+              src="https://www.googletagmanager.com/gtag/js?id=G-VYKPSQGVGJ"
+              strategy="lazyOnload"
+            />
+            <Script id="google-analytics-init" strategy="lazyOnload">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-VYKPSQGVGJ', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
         )}
       </body>
     </html>

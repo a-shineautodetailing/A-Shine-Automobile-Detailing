@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -136,18 +135,7 @@ export default function LandingPage() {
   };
 
 
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
-  };
 
   return (
     <main style={{ background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }} suppressHydrationWarning>
@@ -198,38 +186,36 @@ export default function LandingPage() {
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            <div className="mobile-menu-overlay" onClick={() => setIsMobileMenuOpen(false)} />
-            <div className="mobile-menu" style={{ background: 'var(--color-bg-primary)' }}>
-              <div className="mobile-menu__header">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', flexShrink: 0 }}>
-                    <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                  </div>
-                  <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>A-SHINE</span>
+      {isMobileMenuOpen && (
+        <>
+          <div className="mobile-menu-overlay" onClick={() => setIsMobileMenuOpen(false)} />
+          <div className="mobile-menu" style={{ background: 'var(--color-bg-primary)' }}>
+            <div className="mobile-menu__header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', flexShrink: 0 }}>
+                  <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
-                <button onClick={() => setIsMobileMenuOpen(false)} style={{ color: 'var(--color-text-primary)' }}><X /></button>
+                <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>A-SHINE</span>
               </div>
-              <Link href="#services" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
-              <Link href="#about" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
-              <Link href="#gallery" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
-              <Link href="#pricing" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
-              <Link href="#faq" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>FAQ</Link>
-
-              <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '0.85rem', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                <a href="tel:5197295856" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
-                  <Phone size={16} /> (519) 729-5856
-                </a>
-                <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '8px', paddingBlock: '0.75rem', fontSize: '0.9rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }} onClick={() => setIsMobileMenuOpen(false)}>
-                  BOOK NOW
-                </a>
-              </div>
+              <button aria-label="Close navigation menu" onClick={() => setIsMobileMenuOpen(false)} style={{ color: 'var(--color-text-primary)', background: 'transparent', border: 'none', cursor: 'pointer', padding: '0.25rem' }}><X /></button>
             </div>
-          </>
-        )}
-      </AnimatePresence>
+            <Link href="#services" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+            <Link href="#about" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+            <Link href="#gallery" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
+            <Link href="#pricing" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
+            <Link href="#faq" className="mobile-menu__link" onClick={() => setIsMobileMenuOpen(false)}>FAQ</Link>
+
+            <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '0.85rem', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              <a href="tel:5197295856" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-accent-primary)', textDecoration: 'none' }}>
+                <Phone size={16} /> (519) 729-5856
+              </a>
+              <a href="#contact" className="btn btn--primary btn--full" style={{ borderRadius: '8px', paddingBlock: '0.75rem', fontSize: '0.9rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }} onClick={() => setIsMobileMenuOpen(false)}>
+                BOOK NOW
+              </a>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Hero Section */}
       <section
@@ -339,7 +325,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Interior Shampoo</p>
-                  <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Seats, Carpets & Trunk</p>
+                  <p style={{ fontSize: '0.65rem', color: 'var(--color-text-secondary)', margin: 0 }}>Seats, Carpets & Trunk</p>
                 </div>
               </div>
 
@@ -349,7 +335,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Leather & Trim Care</p>
-                  <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Cleaned & Conditioned</p>
+                  <p style={{ fontSize: '0.65rem', color: 'var(--color-text-secondary)', margin: 0 }}>Cleaned & Conditioned</p>
                 </div>
               </div>
 
@@ -359,7 +345,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#0f172a', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>Salt & Stain Removal</p>
-                  <p style={{ fontSize: '0.65rem', color: '#64748b', margin: 0 }}>Deep Steam Cleansing</p>
+                  <p style={{ fontSize: '0.65rem', color: 'var(--color-text-secondary)', margin: 0 }}>Deep Steam Cleansing</p>
                 </div>
               </div>
 
@@ -371,7 +357,7 @@ export default function LandingPage() {
               <div style={{ display: 'flex', color: 'var(--color-accent-primary)', gap: '2px', marginBlock: '0.1rem' }}>
                 {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
               </div>
-              <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 600 }}>Auto Detailing Service</span>
+              <span style={{ fontSize: '0.65rem', color: 'var(--color-text-secondary)', fontWeight: 600 }}>Auto Detailing Service</span>
             </div>
           </div>
 
@@ -391,12 +377,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <motion.div
+          <div
             className="services-grid"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}
           >
             {[
@@ -407,9 +389,8 @@ export default function LandingPage() {
               { img: '/service-ai-truck.webp', icon: '🚛', title: 'Truck & Commercial Cabs', desc: 'Professional mobile interior detailing for semi-trucks, dump trucks, loaders, and commercial vehicle cabs.', pos: 'center 45%' },
               { img: '/service-van.webp', icon: '🏠', title: 'Mobile or Studio Drop-off', desc: 'We bring our full mobile unit directly to your driveway, or you can drop off your vehicle at our home studio.', pos: 'center 50%' }
             ].map((srv, i) => (
-              <motion.div
+              <div
                 key={i}
-                variants={fadeIn}
                 className="service-card"
                 style={{
                   background: 'var(--color-bg-primary)',
@@ -450,9 +431,9 @@ export default function LandingPage() {
                     BOOK THIS SERVICE <ArrowRight size={14} />
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -1210,14 +1191,7 @@ export default function LandingPage() {
             </div>
 
             {/* Compact Card */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activePriceIdx}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-              >
+            <div key={activePriceIdx} style={{ animation: 'fadeIn 0.25s ease' }}>
                 {activePriceIdx === 0 && (
                   <div className="glass-card" style={{ padding: '1.25rem 1.15rem', background: 'var(--color-bg-primary)', border: '1px solid var(--glass-border)', borderRadius: '14px', display: 'flex', flexDirection: 'column', position: 'relative', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                     <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>SMALL CAR</span>
@@ -1392,9 +1366,7 @@ export default function LandingPage() {
                   </div>
                 )}
 
-
-              </motion.div>
-            </AnimatePresence>
+            </div>
           </div>
 
           {/* Trust Mappings Bar */}
@@ -1453,6 +1425,8 @@ export default function LandingPage() {
                   }}
                 >
                   <button
+                    id={`faq-btn-${index}`}
+                    aria-controls={`faq-panel-${index}`}
                     onClick={(e) => {
                       const willOpen = openFaq !== index;
                       setOpenFaq(willOpen ? index : null);
@@ -1523,31 +1497,28 @@ export default function LandingPage() {
                     </span>
                   </button>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        style={{ overflow: 'hidden' }}
+                  {isOpen && (
+                    <div
+                      id={`faq-panel-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-btn-${index}`}
+                      style={{ overflow: 'hidden', animation: 'fadeIn 0.25s ease' }}
+                    >
+                      <div
+                        className="faq-answer"
+                        style={{
+                          padding: '0 1.5rem 1.25rem 4rem',
+                          color: 'var(--color-text-secondary)',
+                          fontSize: '0.92rem',
+                          lineHeight: 1.65,
+                          borderTop: '1px solid rgba(0,0,0,0.04)',
+                          paddingTop: '0.85rem',
+                        }}
                       >
-                        <div
-                          className="faq-answer"
-                          style={{
-                            padding: '0 1.5rem 1.25rem 4rem',
-                            color: 'var(--color-text-secondary)',
-                            fontSize: '0.92rem',
-                            lineHeight: 1.65,
-                            borderTop: '1px solid rgba(0,0,0,0.04)',
-                            paddingTop: '0.85rem',
-                          }}
-                        >
-                          {faq.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        {faq.a}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -1710,72 +1681,72 @@ export default function LandingPage() {
                 Instant pricing estimate. (Quote inquiry only — not a confirmed booking)
               </p>
 
-              <AnimatePresence mode="wait">
-                {quoteSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    style={{ textAlign: 'center', paddingBlock: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}
-                  >
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(22, 163, 74, 0.1)', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Check size={24} strokeWidth={3} />
+              {quoteSubmitted ? (
+                <div
+                  style={{ textAlign: 'center', paddingBlock: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', animation: 'fadeIn 0.25s ease' }}
+                >
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(22, 163, 74, 0.1)', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={24} strokeWidth={3} />
+                  </div>
+                  <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: 0 }}>Quote Request Prepared!</h4>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.5 }}>
+                    Thank you! Your quote details have been opened in WhatsApp to connect directly with our detailing team. Please note this is a quote inquiry, not a confirmed booking — we will confirm your final slot and details shortly.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleQuoteSubmit} className="quote-form">
+                  <div className="quote-form-row">
+                    <div className="input-group">
+                      <label htmlFor="quote-name" className="input-label input-label--required">Full Name</label>
+                      <input
+                        id="quote-name"
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                        className="input-field"
+                        value={quoteForm.name}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
+                      />
                     </div>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: 0 }}>Quote Request Prepared!</h4>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.5 }}>
-                      Thank you! Your quote details have been opened in WhatsApp to connect directly with our detailing team. Please note this is a quote inquiry, not a confirmed booking — we will confirm your final slot and details shortly.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleQuoteSubmit} className="quote-form">
-                    <div className="quote-form-row">
-                      <div className="input-group">
-                        <label className="input-label input-label--required">Full Name</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="John Doe"
-                          className="input-field"
-                          value={quoteForm.name}
-                          onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                        />
-                      </div>
-                      <div className="input-group">
-                        <label className="input-label input-label--required">Phone Number</label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="(555) 000-0000"
-                          className="input-field"
-                          value={quoteForm.phone}
-                          onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                        />
-                      </div>
+                    <div className="input-group">
+                      <label htmlFor="quote-phone" className="input-label input-label--required">Phone Number</label>
+                      <input
+                        id="quote-phone"
+                        type="tel"
+                        required
+                        placeholder="(555) 000-0000"
+                        className="input-field"
+                        value={quoteForm.phone}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
+                      />
                     </div>
+                  </div>
 
-                    <div className="quote-form-row">
-                      <div className="input-group">
-                        <label className="input-label input-label--required">Email Address</label>
-                        <input
-                          type="email"
-                          required
-                          placeholder="john@example.com"
-                          className="input-field"
-                          value={quoteForm.email}
-                          onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                        />
-                      </div>
-                      <div className="input-group">
-                        <label className="input-label">Vehicle Model</label>
-                        <input
-                          type="text"
-                          placeholder="e.g. Tesla Model 3"
-                          className="input-field"
-                          value={quoteForm.vehicle}
-                          onChange={(e) => setQuoteForm({ ...quoteForm, vehicle: e.target.value })}
-                        />
-                      </div>
+                  <div className="quote-form-row">
+                    <div className="input-group">
+                      <label htmlFor="quote-email" className="input-label input-label--required">Email Address</label>
+                      <input
+                        id="quote-email"
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        className="input-field"
+                        value={quoteForm.email}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
+                      />
                     </div>
+                    <div className="input-group">
+                      <label htmlFor="quote-vehicle" className="input-label">Vehicle Model</label>
+                      <input
+                        id="quote-vehicle"
+                        type="text"
+                        placeholder="e.g. Tesla Model 3"
+                        className="input-field"
+                        value={quoteForm.vehicle}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, vehicle: e.target.value })}
+                      />
+                    </div>
+                  </div>
 
                     <div className="input-group">
                       <label htmlFor="quote-service-select" className="input-label">Service Needed</label>
@@ -1798,7 +1769,17 @@ export default function LandingPage() {
 
                     {/* Pet Hair Extraction Add-on */}
                     <div
+                      role="switch"
+                      aria-checked={quoteForm.petHairExtraction}
+                      tabIndex={0}
+                      aria-label="Toggle 99% Pet Hair Extraction add-on (+ $20)"
                       onClick={() => setQuoteForm({ ...quoteForm, petHairExtraction: !quoteForm.petHairExtraction })}
+                      onKeyDown={(e) => {
+                        if (e.key === ' ' || e.key === 'Enter') {
+                          e.preventDefault();
+                          setQuoteForm({ ...quoteForm, petHairExtraction: !quoteForm.petHairExtraction });
+                        }
+                      }}
                       className={`quote-pet-hair-toggle ${quoteForm.petHairExtraction ? 'active' : ''}`}
                     >
                       {/* Custom Toggle */}
@@ -1823,8 +1804,9 @@ export default function LandingPage() {
                     </div>
 
                     <div className="input-group">
-                      <label className="input-label">Additional Details (Optional)</label>
+                      <label htmlFor="quote-details" className="input-label">Additional Details (Optional)</label>
                       <textarea
+                        id="quote-details"
                         rows={1}
                         placeholder="Condition, special requests, or notes..."
                         className="input-field quote-details-textarea"
@@ -1867,7 +1849,6 @@ export default function LandingPage() {
                     </div>
                   </form>
                 )}
-              </AnimatePresence>
             </div>
           </div>
 
@@ -2062,77 +2043,73 @@ export default function LandingPage() {
       </div>
 
       {/* Privacy Policy Modal */}
-      <AnimatePresence>
-        {isPrivacyModalOpen && (
+      {isPrivacyModalOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            background: 'rgba(0, 0, 0, 0.7)',
+            backdropFilter: 'blur(4px)',
+            animation: 'fadeIn 0.2s ease',
+          }}
+          onClick={() => setIsPrivacyModalOpen(false)}
+        >
           <div
+            onClick={(e) => e.stopPropagation()}
             style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 10000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1rem',
-              background: 'rgba(0, 0, 0, 0.7)',
-              backdropFilter: 'blur(4px)',
+              background: 'var(--color-bg-primary)',
+              color: 'var(--color-text-primary)',
+              borderRadius: '16px',
+              padding: '2rem',
+              maxWidth: '520px',
+              width: '100%',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              border: '1px solid var(--glass-border)',
+              position: 'relative',
+              animation: 'fadeIn 0.2s ease',
             }}
-            onClick={() => setIsPrivacyModalOpen(false)}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                background: 'var(--color-bg-primary)',
-                color: 'var(--color-text-primary)',
-                borderRadius: '16px',
-                padding: '2rem',
-                maxWidth: '520px',
-                width: '100%',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-                border: '1px solid var(--glass-border)',
-                position: 'relative',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Privacy Policy</h3>
-                <button
-                  type="button"
-                  onClick={() => setIsPrivacyModalOpen(false)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: 'var(--color-text-secondary)',
-                    padding: '0.25rem',
-                  }}
-                  aria-label="Close Privacy Policy"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: '0 0 1rem 0' }}>
-                A-Shine Auto Mobile Detailing values your privacy. This website uses Google Analytics to measure traffic and lead actions (page views, clicks on call/WhatsApp/booking buttons, and quote form submissions). That data is securely processed by Google to help us monitor website performance and improve customer service.
-              </p>
-              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
-                We do not sell, rent, or trade your personal contact details to any third-party advertisers. When you contact us or request a free quote, your details are used strictly to provide you with detailing services and scheduling quotes.
-              </p>
-              <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
-                <button
-                  type="button"
-                  onClick={() => setIsPrivacyModalOpen(false)}
-                  className="btn btn--primary"
-                  style={{ borderRadius: '8px', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Privacy Policy</h3>
+              <button
+                type="button"
+                onClick={() => setIsPrivacyModalOpen(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: 'var(--color-text-secondary)',
+                  padding: '0.25rem',
+                }}
+                aria-label="Close Privacy Policy"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: '0 0 1rem 0' }}>
+              A-Shine Auto Mobile Detailing values your privacy. This website uses Google Analytics to measure traffic and lead actions (page views, clicks on call/WhatsApp/booking buttons, and quote form submissions). That data is securely processed by Google to help us monitor website performance and improve customer service.
+            </p>
+            <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
+              We do not sell, rent, or trade your personal contact details to any third-party advertisers. When you contact us or request a free quote, your details are used strictly to provide you with detailing services and scheduling quotes.
+            </p>
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                onClick={() => setIsPrivacyModalOpen(false)}
+                className="btn btn--primary"
+                style={{ borderRadius: '8px', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
+              >
+                Close
+              </button>
+            </div>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </main>
   );
 }
