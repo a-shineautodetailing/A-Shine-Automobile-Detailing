@@ -14,17 +14,17 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#E31B23',
     icons: [
       {
-        src: '/favicon.ico',
+        src: '/crescent-favicon.png?v=20261010',
         sizes: '48x48',
-        type: 'image/x-icon',
+        type: 'image/png',
       },
       {
-        src: '/icon.png',
+        src: '/icon.png?v=20261010',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/apple-icon.png',
+        src: '/apple-icon.png?v=20261010',
         sizes: '180x180',
         type: 'image/png',
       },

@@ -32,9 +32,9 @@ async function generateAllAssets() {
     }
   }
 
-  // Raw transparent buffer
+  // Raw transparent buffer with minimal padding
   const transparentBuffer = await sharp(out, { raw: { width, height, channels: 4 } })
-    .extend({ top: 20, bottom: 20, left: 20, right: 20, background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .extend({ top: 12, bottom: 12, left: 12, right: 12, background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png()
     .toBuffer();
 
@@ -49,7 +49,7 @@ async function generateAllAssets() {
     .webp({ quality: 90 })
     .toFile(path.resolve('public/crescent-logo.webp'));
 
-  // Also replace public/logo.png and public/logo.webp
+  // Also update public/logo.png and public/logo.webp
   await sharp(transparentBuffer)
     .resize({ width: 512, withoutEnlargement: true })
     .png({ quality: 95 })
@@ -60,37 +60,57 @@ async function generateAllAssets() {
     .webp({ quality: 90 })
     .toFile(path.resolve('public/logo.webp'));
 
-  // Backup in assets-src
-  await sharp(transparentBuffer)
-    .toFile(path.resolve('assets-src/logo.png'));
-
-  // 3. Generate App Icon (192x192), Apple Icon (180x180), Favicon (48x48)
-  // For icons: create a crisp white squircle background so black text and crescent pop on both dark and light browser tabs
+  // Helper to make crisp icons with white rounded square background
+  // Minimal padding so the crescent moon is large, bold and clearly visible on tiny tabs
   async function makeIcon(size, borderRadius, padding) {
-    const innerSize = size - (padding * 2);
+    const innerW = size - (padding * 2);
+    const innerH = size - (padding * 2);
     const resizedLogo = await sharp(transparentBuffer)
-      .resize(innerSize, innerSize, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .toBuffer();
+      .resize(innerW, innerH, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .toBuffer({ resolveWithObject: true });
+
+    // Center resized logo inside inner bounds
+    const topOffset = Math.round((size - resizedLogo.info.height) / 2);
+    const leftOffset = Math.round((size - resizedLogo.info.width) / 2);
 
     const roundedRectSvg = Buffer.from(
-      `<svg width="${size}" height="${size}"><rect x="0" y="0" width="${size}" height="${size}" rx="${borderRadius}" ry="${borderRadius}" fill="#ffffff"/></svg>`
+      `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${borderRadius}" ry="${borderRadius}" fill="#ffffff"/></svg>`
     );
 
     return sharp(roundedRectSvg)
-      .composite([{ input: resizedLogo, top: padding, left: padding }])
+      .composite([{ input: resizedLogo.data, top: topOffset, left: leftOffset }])
       .png();
   }
 
-  // 192x192 icon
-  await (await makeIcon(192, 36, 16)).toFile(path.resolve('app/icon.png'));
+  // 1. Dedicated browser tab favicons:
+  // 48x48 crescent-favicon.png with 2px padding and 8px border-radius
+  const fav48 = await makeIcon(48, 8, 2);
+  await fav48.toFile(path.resolve('public/crescent-favicon.png'));
+  await fav48.toFile(path.resolve('public/favicon.ico'));
+  await fav48.toFile(path.resolve('app/favicon.ico'));
 
-  // 180x180 apple-icon
-  await (await makeIcon(180, 34, 15)).toFile(path.resolve('app/apple-icon.png'));
+  // 32x32
+  const fav32 = await makeIcon(32, 6, 1);
+  await fav32.toFile(path.resolve('public/favicon-32x32.png'));
 
-  // 48x48 favicon
-  await (await makeIcon(48, 10, 4)).toFile(path.resolve('app/favicon.ico'));
+  // 16x16
+  const fav16 = await makeIcon(16, 3, 1);
+  await fav16.toFile(path.resolve('public/favicon-16x16.png'));
 
-  console.log('All crescent moon assets generated successfully!');
+  // 192x192 icon.png
+  const icon192 = await makeIcon(192, 32, 10);
+  await icon192.toFile(path.resolve('app/icon.png'));
+  await icon192.toFile(path.resolve('public/icon.png'));
+
+  // 180x180 apple-icon.png
+  const icon180 = await makeIcon(180, 30, 10);
+  await icon180.toFile(path.resolve('app/apple-icon.png'));
+  await icon180.toFile(path.resolve('public/apple-icon.png'));
+
+  console.log('All crescent favicon and app icon assets generated successfully!');
 }
 
-generateAllAssets().catch(console.error);
+generateAllAssets().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
