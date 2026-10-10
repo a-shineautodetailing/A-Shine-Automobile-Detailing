@@ -144,8 +144,8 @@ export default function LandingPage() {
         <div className="nav__inner container" style={{ paddingBlock: '0.25rem' }}>
           {/* Logo */}
           <Link href="/" className="nav__logo" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '46px', height: '46px', flexShrink: 0 }}>
-              <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '48px', flexShrink: 0 }}>
+              <img src="/crescent-logo.webp" alt="A-Shine Auto Mobile Detailing Logo" width={50} height={48} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
               <span style={{ fontSize: '1.35rem', fontWeight: 900, color: 'var(--color-accent-secondary)', letterSpacing: '-0.02em' }}>A-SHINE</span>
@@ -192,8 +192,8 @@ export default function LandingPage() {
           <div className="mobile-menu" style={{ background: 'var(--color-bg-primary)' }}>
             <div className="mobile-menu__header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', flexShrink: 0 }}>
-                  <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', flexShrink: 0 }}>
+                  <img src="/crescent-logo.webp" alt="A-Shine Auto Mobile Detailing Logo" width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
                 <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em' }}>A-SHINE</span>
               </div>
@@ -1868,12 +1868,12 @@ export default function LandingPage() {
                 justifyContent: 'center',
                 background: '#ffffff',
                 borderRadius: '8px',
-                width: '38px',
-                height: '38px',
-                padding: '4px',
+                width: '42px',
+                height: '42px',
+                padding: '3px',
                 flexShrink: 0
               }}>
-                <img src="/a-logosvgmaker-editor.svg" alt="A-Shine Auto Mobile Detailing Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/crescent-logo.webp" alt="A-Shine Auto Mobile Detailing Logo" width={42} height={42} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
                 <span style={{ fontSize: '1.05rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em' }}>A-SHINE</span>
